@@ -1,4 +1,4 @@
-<img src = "READMEImages/logo.jpg">
+<img src = "READMEImages/homePage.png">
 
 
 # Descriptions
