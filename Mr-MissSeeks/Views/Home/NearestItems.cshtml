@@ -1,0 +1,77 @@
+﻿
+@model Mr_MissSeeks.Models.Item
+@{
+    var locationLong = (List<float>)TempData["locationLong"];
+    var locationLatt = (List<float>)TempData["locationLatt"];
+    var indexArray = (List<int>)TempData["indexArray"];
+    var detailsArray = (List<string>)TempData["itemDetails"];
+    @*31.251077, 34.790069 *@
+}
+@using (Html.BeginForm("NearestItems", "Home", FormMethod.Post))
+{
+
+    <legend style="font-family: Arial Black; color: blue; font-size: large;"></legend>
+    <div id="map" style="width: 500px; height: 500px;">
+        @*set google map size .*@
+    </div>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <div id="googleMap" style="height:500px;width:500px; margin-right:500px"></div>
+    <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(31.251077, 34.790069);
+
+            var map = new google.maps.Map(document.getElementById("googleMap"), {
+                zoom: 15, center: myCenter, mapTypeId: google.maps.MapTypeId.ROADMAP,
+                tilt: 0 });
+
+
+
+        @foreach(var item in indexArray)
+        {
+            <text>
+                var marker = new google.maps.Marker({
+                map: map,
+                position: { lat: @locationLatt[item], lng: @locationLong[item] },
+                    title: "@detailsArray[item]"
+            });
+            marker.addListener('click', function () {
+                map.setZoom(20);
+                map.setCenter(marker.getPosition());
+            });
+            marker.setMap(map);
+            </text>
+        }
+
+
+
+
+
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGu6Uila3fwxiFZ0dLJzL-Z4PcZjVJ8D0&callback=myMap"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+

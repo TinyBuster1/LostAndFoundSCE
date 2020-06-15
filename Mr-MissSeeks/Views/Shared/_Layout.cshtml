@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR MissSeeks</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar navbar-light navbar-fixed-top" style="background-color:azure">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand"> <img class="logo" alt="logo" src="~/images/logo.png" style="max-width: 30%"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Search", "Search", "User")</li>
+                        <li>@Html.ActionLink("AdminPanel", "AdminPanel", "Admin")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content" id="ft">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div style="background-color: dimgrey;  padding-top: 30px;" role="contentinfo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4" style="color: white;">
+                            <h3 class="section-title" style="color: white;">About Us</h3>
+                            <p>Have you ever lost something that belongs to you? And you thought if anyone could find it how could he know that this thing belonged to me? Will he be able to return it to me?.</p>
+                            <p>This site gives coupons and benefits to anyone who finds an item and returns it to its owner!.</p>
+                            <p>In this way, both sides are making a profit, The lost owner gets what he lost, and the other side gets the benefit of returning the item!.</p>
+                            <p>This is a win-win situation for both sides!.</p>
+                            <p class="copy-right">&copy; 2020 MR MissSeeks. <br>All Rights Reserved. <br></p>
+                        </div>
+                        <div class="col-md-4" style="color: white;">
+                            <h3 class="section-title" style="color: white;">Our Address</h3>
+                            <ul class="contact-info">
+                                <li><i class="icon-map-marker"></i> Universe C-267, Milky Way     Galaxy, Planet Earth.</li>
+                                <li><i class="icon-phone"></i>  +123 420 420</li>
+                                <li><i class="icon-envelope"></i><a href="#">  info@MrMissSeeks.com</a></li>
+                                <li><i class="icon-globe2"></i><a href="#">  www.MrMissSeeks.com</a></li>
+                            </ul>
+                            @*<h3 class="section-title">Connect with Us</h3>
+                                <ul class="social-media">
+                                    <li><a href="#" class="facebook"><i class="icon-facebook"></i></a></li>
+                                    <li><a href="#" class="twitter"><i class="icon-twitter"></i></a></li>
+                                    <li><a href="#" class="dribbble"><i class="icon-dribbble"></i></a></li>
+                                    <li><a href="#" class="github"><i class="icon-github-alt"></i></a></li>
+                                </ul>*@
+                        </div>
+                        <div class="col-md-4 ">
+                            <h3 class="section-title" style="color: white;">Drop us a line</h3>
+                            <form class="contact-form">
+                                <div class="form-group">
+                                    <label for="name" class="sr-only">Name</label>
+                                    <input type="name" class="form-control" id="name" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="sr-only">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message" class="sr-only">Message</label>
+                                    <textarea class="form-control" id="message" rows="7" placeholder="Message"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" id="btn-submit" class="btn btn-send-message btn-md" value="Send Message">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+    <!-- Owl Carousel -->
+    <script src="~/js/owl.carousel.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

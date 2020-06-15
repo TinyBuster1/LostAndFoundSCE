@@ -1,0 +1,108 @@
+﻿@model Mr_MissSeeks.Models.Item
+@{
+    var locationArray = (List<float>)TempData["location"];
+}
+
+@using (Html.BeginForm("EditItem", "Admin", FormMethod.Post, new { onsubmit = "return SubmitFormItem(this)" }))
+{<meta charset="utf-8">
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <div id="googleMap" style="height:300px;width:300px; margin-right:500px"></div>
+    <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(@locationArray[0], @locationArray[1]);
+
+            var map = new google.maps.Map(document.getElementById("googleMap"), {
+                zoom: 15, center: myCenter, mapTypeId: google.maps.MapTypeId.ROADMAP,
+                tilt: 0 });
+            var marker = new google.maps.Marker({
+                position: myCenter,
+                map: map,
+                title: 'Click to zoom'
+            });
+            map.addListener('center_changed', function () {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                window.setTimeout(function () {
+                    map.panTo(marker.getPosition());
+                }, 30000);
+            });
+
+            marker.addListener('click', function () {
+                map.setZoom(8);
+                map.setCenter(marker.getPosition());
+            });
+            marker.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGu6Uila3fwxiFZ0dLJzL-Z4PcZjVJ8D0&callback=myMap"></script>
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+    <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(@locationArray[0], @locationArray[1]);
+            var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({ position: myCenter });
+            marker.setMap(map);
+        }
+    </script>
+
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.name, new { @class = "control-label" })
+        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.type, new { @class = "control-label" })
+        @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.color, new { @class = "control-label" })
+        @Html.EditorFor(model => model.color, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.status, new { @class = "control-label" })
+        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.location, new { @class = "control-label" })
+        @Html.EditorFor(model => model.location, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.userID, new { @class = "control-label" })
+        @Html.EditorFor(model => model.userID, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.imagePath, new { @class = "control-label" })
+        @Html.EditorFor(model => model.imagePath, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.description, new { @class = "control-label" })
+        @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+        <input type="reset" value="Cancel" class="btn" />
+    </div>
+}

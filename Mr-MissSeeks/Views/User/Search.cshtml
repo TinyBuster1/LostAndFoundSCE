@@ -1,0 +1,288 @@
+﻿@{
+    ViewBag.Title = "User List";
+
+}
+
+
+<h1>User Operations &nbsp; <a class="btn btn-success" style="margin-bottom:10px" onclick="PopupAddItem('@Url.Action("AddItem","User")')"><i class="fa fa-plus"></i> Add New Item</a></h1>
+
+
+<h2>Lost Items</h2>
+
+
+<table id="ItemLostTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Location</th>
+            <th>UserID</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+</table>
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<h2>Found Items</h2>
+
+<table id="ItemFoundTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Location</th>
+            <th>UserID</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+</table>
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
+
+    <script>
+        var PopupItem, dataTableItem;
+        $(document).ready(function () {
+            dataTableItem = $("#ItemLostTable").DataTable({
+                "ajax": {
+                    "url": "/User/GetLostData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Id" },
+                    { "data": "name" },
+                    { "data": "status" },
+                    { "data": "type" },
+                    { "data": "color" },
+                    { "data": "location" },
+                    { "data": "userID" },
+                    {
+                        "data": "imagePath", "render": function (data) {
+                            return '<img src="/itemImages/' + data + '" style="height:50px;width:50px;"/>';
+                        }
+                    },
+                    { "data": "description" },
+                    {"data":"Id" , "render" : function (data) {
+                        return "<a class='btn btn-default btn-sm' onclick=PopupFormItem('@Url.Action("ItemDetails","User")/" + data + "')><i class='fa fa-pencil'></i> Details</a>"
+                    },
+                        "orderable": false,
+                        "searchable":false,
+                        "width":"150px"
+                    }
+
+                ],
+                "language": {
+
+                    "emptyTable" : "No data found"
+                }
+            });
+        });
+
+        function PopupFormItem(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                PopupItem = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Item Details',
+                    height: 500,
+                    width: 700,
+                    close: function () {
+                        PopupItem.dialog('destroy').remove();
+
+                    }
+
+                });
+            });
+        }
+
+        function SubmitFormItem(form) {
+            $.validator.unobtrusive.parse(form);
+            if($(form).valid()){
+                $.ajax({
+                    type : "POST",
+                    url : form.action,
+                    data : $(form).serialize(),
+                    success : function (data) {
+                        if(data.success)
+                        {
+                            PopupItem.dialog('close');
+                            dataTableItem.ajax.reload();
+
+                            $.notify(data.message,{
+                                globalPosition :"top center",
+                                className : "success"
+                            })
+
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+    </script>
+
+    <script>
+        var PopupFoundItem, dataTableFoundItem;
+        $(document).ready(function () {
+            dataTableItem = $("#ItemFoundTable").DataTable({
+                "ajax": {
+                    "url": "/User/GetFoundData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Id" },
+                    { "data": "name" },
+                    { "data": "status" },
+                    { "data": "type" },
+                    { "data": "color" },
+                    { "data": "location" },
+                    { "data": "userID" },
+                    {
+                        "data": "imagePath", "render": function (data) {
+                            return '<img src="/itemImages/' + data + '" style="height:50px;width:50px;"/>';
+                        }
+                    },
+                    { "data": "description" },
+                    {"data":"Id" , "render" : function (data) {
+                        return "<a class='btn btn-default btn-sm' onclick=PopupFormItem('@Url.Action("ItemDetails","User")/" + data + "')><i class='fa fa-pencil'></i> Details</a>"
+                    },
+                        "orderable": false,
+                        "searchable":false,
+                        "width":"150px"
+                    }
+
+                ],
+                "language": {
+
+                    "emptyTable" : "No data found"
+                }
+            });
+        });
+
+        function PopupFormItem(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                PopupFoundItem = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Item Details',
+                    height: 500,
+                    width: 700,
+                    close: function () {
+                        PopupFoundItem.dialog('destroy').remove();
+                        window.location.reload();
+                        
+                    }
+
+                });
+            });
+        }
+
+        function SubmitFormItem(form) {
+            $.validator.unobtrusive.parse(form);
+            if($(form).valid()){
+                $.ajax({
+                    type : "POST",
+                    url : form.action,
+                    data : $(form).serialize(),
+                    success : function (data) {
+                        if(data.success)
+                        {
+                            PopupItem.dialog('close');
+                            dataTableFoundItem.ajax.reload();
+                            datatTableItem.ajax.reload();
+
+                            $.notify(data.message,{
+                                globalPosition :"top center",
+                                className : "success"
+                            })
+
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+
+        function PopupAddItem(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+
+                    PopupItem = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'Fill Item Details',
+                        height: 500,
+                        width: 700,
+                        close: function () {
+                            PopupItem.dialog('destroy').remove();
+
+                        }
+
+                    });
+                });
+        }
+
+        function SubmitAddItem(form) {
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            PopupItem.dialog('close');
+                            dataTableItem.ajax.reload();
+                            
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+
+
+        
+    </script>
+
+
+
+}

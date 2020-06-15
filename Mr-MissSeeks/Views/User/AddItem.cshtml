@@ -1,0 +1,39 @@
+﻿@model Mr_MissSeeks.Models.Item
+
+@using (Html.BeginForm("FileUpload", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+
+<div>
+    Name<br />
+    @Html.TextBox("name") <br />
+    Type<br />
+    @Html.TextBox("type") <br />
+    Color<br />
+    @Html.TextBox("color") <br />
+    Status<br />
+    @Html.TextBox("status") <br />
+    Location<br />
+    @Html.TextBox("location") <br />
+    UserID<br />
+    @Html.TextBox("userID") <br />
+    Description<br />
+    @Html.TextBox("description") <br />
+
+</div>
+
+
+
+
+
+
+    <label for="file">Upload Image:</label>
+    <input type="file" name="file" id="file" style="width: 100%;" />
+    <input type="submit" value="Submit" class="submit" />
+
+
+    <div class="form-group">
+        <input type="reset" value="Reset" class="btn" />
+    </div>
+}

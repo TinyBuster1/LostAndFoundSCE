@@ -1,0 +1,114 @@
+﻿@model Mr_MissSeeks.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <h3>User Info:</h3>
+            <form>
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class=" mb-3" style="margin-bottom: 10px">
+                            <label for="validationDefault01">First name</label>
+                            <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="" required>
+                        </div>
+                        <div class=" mb-3" style="margin-bottom: 10px">
+                            <label for="validationDefault02">Last name</label>
+                            <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="" required>
+                        </div>
+                        <div class=" mb-3" style="margin-bottom: 10px">
+                            <label for="validationDefault02">UserName</label>
+                            <input type="text" class="form-control" id="validationDefault02" placeholder="Email" value="" required>
+                        </div>
+                        <div class="mb-3" style="margin-bottom: 10px">
+                            <label for="inputPhone">Phone</label>
+                            <input type="text" class="form-control" id="inputPhone" placeholder="Phone">
+                        </div>
+                        <div class="mb-3" style="margin-bottom: 10px">
+                            <label for="inputGender">Gender</label>
+                            <select id="inputGender" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" type="submit" style="margin-top: 20px">Update Details</button>
+
+                    </div>
+                    <div class="col-sm-6" style="margin-top:7px">
+
+                        <label>First name</label>
+                        <ul class="list-group list-group-horizontal-xl">
+                            <li class="list-group-item" id="userFirstName"></li>
+                        </ul>
+                        <label>Last name</label>
+                        <ul class="list-group list-group-horizontal-xl">
+                            <li class="list-group-item" id="userLastName"></li>
+                        </ul>
+                        <label>Email</label>
+                        <ul class="list-group list-group-horizontal-xl">
+                            <li class="list-group-item" id="userEmail"></li>
+                        </ul>
+                        <label>Phone</label>
+                        <ul class="list-group list-group-horizontal-xl">
+                            <li class="list-group-item" id="userPhone"></li>
+                        </ul>
+                        <labe>Gender</labe>
+                        <ul class="list-group list-group-horizontal-xl">
+                            <li class="list-group-item" id="userGender"></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+    </dl>
+</div>
+
+<hr />
+<h3 style="margin-top: 80px">User Posts:</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Location</th>
+            <th scope="col">Color</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td></td>
+            <td></td>           
+        </tr>
+
+    </tbody>
+</table>

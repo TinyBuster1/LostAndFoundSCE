@@ -1,0 +1,17 @@
+﻿@{
+    var objectArray = (List<int>)TempData["Statistics"];
+}
+
+@using (Html.BeginForm("Statistics", "Admin", FormMethod.Post, new { onsubmit = "return SubmitFormStatistics(this)" }))
+{
+
+    <h3>Total Users : @objectArray[0] </h3>
+    <h3>Total Items :@objectArray[1] </h3>
+    <h3>Total Lost Items :@objectArray[2] </h3>
+    <h3>Total Found Items :@objectArray[3] </h3>
+    <div class="form-group">
+        <input type="submit" value="Confirm" class="btn btn-primary" />
+
+    </div>
+
+}

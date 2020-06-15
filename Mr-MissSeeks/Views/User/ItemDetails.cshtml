@@ -1,0 +1,57 @@
+﻿
+@model Mr_MissSeeks.Models.Item
+@{
+    var locationArray = (List<float>)TempData["itemLocation"];
+    var detailsArray = (List<string>)TempData["itemDetails"];
+    string path = "/itemImages/" + detailsArray[5];
+}
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div id="googleMap" style="height:300px;width:300px" margin-right:500px"></div>
+<img id="img_logo" alt="Logo" src="@Url.Content("~"+path)" style="height:300px;width:300px;"/>
+<script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(@locationArray[0], @locationArray[1]);
+           
+            var map = new google.maps.Map(document.getElementById("googleMap"), {
+                zoom: 15, center: myCenter, mapTypeId: google.maps.MapTypeId.ROADMAP,
+                tilt: 0 });
+            var marker = new google.maps.Marker({
+                position: myCenter,
+                map: map,
+                title: 'Click to zoom'
+            });
+            map.addListener('center_changed', function () {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                window.setTimeout(function () {
+                    map.panTo(marker.getPosition());
+                }, 30000);
+            });
+
+            marker.addListener('click', function () {
+                map.setZoom(8);
+                map.setCenter(marker.getPosition());
+            });
+            marker.setMap(map);
+        }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGu6Uila3fwxiFZ0dLJzL-Z4PcZjVJ8D0&callback=myMap"></script>
+
+
+<br /><br />
+
+Item name : @detailsArray[0]
+      <br>
+Item type : @detailsArray[1]
+      <br>
+Item color : @detailsArray[2]
+      <br>
+Item description : @detailsArray[3]
+      <br>
+for more details contact : @detailsArray[4]
+      <br>
